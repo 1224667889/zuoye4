@@ -1,1 +1,5 @@
-需启动redis和mysql才能正常运行
+flask 、api 需启动redis和mysql才能正常运行
+flask部署地址为：123.57.180.220
+api部署地址为：123.57.180.220:8090
+api帮助文档：www.showdoc.cc/mirrorlied (访问码：aaa)
+
