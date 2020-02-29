@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/css/dateTime.css">
+        <title>资料修改</title>
+        
+    </head>
+    
+
+    
+
+    <body background="/static/back.png"    style="background-repeat:no-repeat;background-size:100% 100%; background-attachment:fixed;">
+        <div style="top:0px">
+            <table style="position:fixed;left:10px;top：0px"><tr>
+                <td> <a href="/index" style="cursor:pointer" ><img src="/static/firstpage.png" width="70%" height="50%"></a></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td> <a href="/upload" style="cursor:pointer" ><img src="/static/upload.png" width="70%" height="50%"></a></td>
+                <td> <a href="/myself" style="cursor:pointer" ><img src="/static/person.png" width="70%" height="50%"></a></td>
+                <td> <a href="/loginout" style="cursor:pointer" ><img src="/static/exit.png" width="70%" height="50%"></a></td>
+                </tr></table>
+        </div>
+        <br><br><br>
+        <form method="POST">
+        {{form.csrf_token()}}
+        <table height="80%" width="80%" style='text-align:left;margin-top:0px;margin-left:40px' cellspacing="10"  cellpadding="0">
+            <tr>
+                <th>个人信息修改</th>
+                <th style="visibility:hidden;"></th>
+                <th style="visibility:hidden;">密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线</th>
+            </tr>
+            <tr>
+                <th>{{form.birthday.label}}</th>
+                <th>{{form.birthday}}</th>
+                <th>{% for err in form.birthday.errors %}
+                        <div class="col-md-12">
+                            <span style="color: red">{{ err }}</span>
+                        </div>
+                    {% endfor %}</th>
+            </tr>
+            <tr>
+                <th>{{form.sex.label}}</th>
+                <th>{{form.sex}}</th>
+                <th>{% for err in form.sex.errors %}
+                        <div class="col-md-12">
+                            <span style="color: red">{{ err }}</span>
+                        </div>
+                    {% endfor %}</th>
+            </tr>
+            <tr>
+                <th>{{form.signature.label}}</th>
+                <th>{{form.signature}}</th>
+                <th>{% for err in form.signature.errors %}
+                        <div class="col-md-12">
+                            <span style="color: red">{{ err }}</span>
+                        </div>
+                    {% endfor %}</th>
+            </tr>
+        </table>
+        <hr>
+        <div id="tips" style="margin-left:40px;font-size:150%">
+            <span style="font-size:150%">注意：<br></span>
+            <span style="color: gray"></span>
+            生日格式为  “xxxx-xx-xx”<br>
+        </div>
+        <hr>
+        
+        <span style="font-size:150%;margin-left:40px">{{form.submit}}</span> 
+        {%for message in get_flashed_messages()%}
+        {{message}}
+    {%endfor%}
+
+
+    </form>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/dateTime.min.js"></script>
+<script type="text/javascript">
+$("#date").datetime({
+	type:"date",
+	value:[2019,9,31],
+	success:function(res){
+		console.log(res)
+	}
+})
+
+$("#time").datetime({
+	type:"time",
+	value:[12,28]
+})
+
+$("#datetime").datetime({
+	type:"datetime",
+	value:[2019,7,15,15,30]
+})
+</script>
+    </body>
+</html>

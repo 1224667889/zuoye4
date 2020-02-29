@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>个人界面</title>
+    </head>
+        <table style="position:fixed;left:10px;top：0px"><tr>
+            <td> <a href="/index" style="cursor:pointer" ><img src="/static/firstpage.png" width="70%" height="50%"></a></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td> <a href="/upload" style="cursor:pointer" ><img src="/static/upload.png" width="70%" height="50%"></a></td>
+            <td> <a href="/myself" style="cursor:pointer" ><img src="/static/person.png" width="70%" height="50%"></a></td>
+            <td> <a href="/loginout" style="cursor:pointer" ><img src="/static/exit.png" width="70%" height="50%"></a></td>
+            </tr></table>
+<body background="/static/back.png"style="background-repeat:no-repeat;background-size:100% 100%;background-attachment:fixed;">
+        <hr>
+        <br><br><br><br>
+        <div id="data" style="float:left;margin-left: 35px;">
+            <h1 style="left:150px;margin-top：300px;">用户资料</h1>
+    <table>
+        <tr>
+            <th><font size="10">头像：</font></th>
+            <th><a href="/changehead"><img src="{{message.head}}" ,alt="点击修改头像" style="cursor:pointer;" width="100" height="100"></a></th>
+            <th><a href='/changehead'>更换头像</a></th>
+        </tr>
+        <tr>
+            <th><font size="5">用户名：</font></th>
+            <th><font size="5">{{user_name}}</font></th>
+            <th><a href='/loginout'>退出登录</a></th>
+        </tr>
+        <tr>
+            <th><font size="5">性别：</font></th>
+            <th><font size="5">{{message.sex}}</font></th>
+        </tr>
+        <tr>
+            <th><font size="5">生日：</font></th>
+            <th><font size="5">{{message.birthday}}</font></th>
+        </tr>
+        <tr>
+            <th><font size="5">信誉情况：</font></th>
+            <th><font size="5">
+            {%if message.bantime%}
+            限制部分功能至：{{message.bantime}}
+            {%else%}
+                无不良行为
+            {%endif%}
+        </th>
+        <th><a href='/change'>修改密码</a></th>
+        <tr>
+            <th><font size="5">个性签名：</font></th>
+            <th><textarea cols="30" rows="5" readonly="readonly">{{message.signature}}</textarea> </th>
+            <th><a href='/changedata'>更改个人资料</a></th>
+        </tr>
+        </tr>
+        </table>
+        
+
+        <div id="admin">
+        {%if role_name == "admin"%}
+            <a href="/admin"><h1>管理员系统</h1></a>
+        {% endif %}
+        </div>
+
+
+    </div>
+    <div style="float:left;margin-left: 25px;">
+    <h1>>收藏夹：</h1>
+
+    {%for collect in user.collects%}
+
+    <a href="/video/{{collect.video_id}}" target="_blank" style="font-size: 25px;">
+    {{collect.videomessage.name}}
+    ({{collect.videomessage.style.content}})
+    <br>
+</a>
+
+    {%endfor%}
+</div>
+<hr style="float: right;margin-left: 2500px;">
+<div style="float:left;margin-left: 25px;">
+    <h1>投稿：</h1>
+    {%for video in user.videos%}
+
+    <a href="/video/{{video.id}}" target="_blank" style="font-size: 25px;">
+    {{video.name}}
+    ({{video.style.content}})
+    <br>
+    </a>
+
+    {%endfor%}
+    </div>
+
+</body>
+</html>

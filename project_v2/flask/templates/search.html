@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>视频搜索</title>
+</head>
+<body>
+    <h2><a href="/index"><返回主页</a></h2>
+    <div  style="margin-left: 40px;float: left;" >
+        <form method='POST'>
+        <input type="text"  id='search' class='search' name='search' value="{{content}}">
+        <button type="submit" style="margin-left: 0px;">搜索</button>
+    </form>
+    </div>
+    <div  style="margin-left: 140px;float: left;" >
+    <table border="1">
+        <tr>
+            <td><a href="/search/content=动画">动画</a></td>
+            <td><a href="/search/content=音乐">音乐</a></td>
+            <td><a href="/search/content=舞蹈">舞蹈</a></td>
+            <td><a href="/search/content=科技">科技</a></td>
+            <td><a href="/search/content=生活">生活</a></td>
+            <td><a href="/search/content=时尚">时尚</a></td>
+            <td><a href="/search/content=娱乐">娱乐</a></td>
+        </tr>
+        <tr>
+            <td><a href="/search/content=番剧">番剧</a></td>
+            <td><a href="/search/content=国创">国创</a></td>
+            <td><a href="/search/content=游戏">游戏</a></td>
+            <td><a href="/search/content=数据">数据</a></td>
+            <td><a href="/search/content=鬼畜">鬼畜</a></td>
+            <td><a href="/search/content=广告">广告</a></td>
+            <td><a href="/search/content=影视">影视</a></td>
+        </tr>
+    </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <hr>
+{%for video in videos%}
+<a href="/video/{{video.id}}" style="cursor: pointer;" target="_blank">
+<form method="POST">
+<table border="1" style="float: left;">
+<tr><td colspan="2">{{video.name}}</td></tr>
+<tr><td rowspan="3"><img src="{{video.face}}"width="200"height="200"></td><td>视频分区:{{video.style.content}}</td></tr>
+<tr><td>{{video.birthday}}</td></tr>
+</table>
+</form>
+</a>
+{%endfor%}
+
+    
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>页面跳转</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+		function white(u){     
+			setTimeout(go(u),30000); 
+		};
+		function go(u){
+			location.href=u;
+		}
+</script>
+</head>
+<body onload="white('{{url}}')">
+    <h1>{{message}}</h1>
+    <a href={{url}}><h2>若浏览器无反应，请点击此处</h2></a>
+</body>
+</html>

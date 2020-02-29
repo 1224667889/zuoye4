@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>密码修改</title>
+    </head>
+    
+
+    <body background="/static/back.png" 
+style="
+background-repeat:no-repeat;
+background-size:100% 100%;
+background-attachment:fixed;">
+    <table style="position:fixed;left:10px;top：0px"><tr>
+        <td> <a href="/index" style="cursor:pointer" ><img src="/static/firstpage.png" width="70%" height="50%"></a></td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        <td> <a href="/upload" style="cursor:pointer" ><img src="/static/upload.png" width="70%" height="50%"></a></td>
+        <td> <a href="/myself" style="cursor:pointer" ><img src="/static/person.png" width="70%" height="50%"></a></td>
+        <td> <a href="/loginout" style="cursor:pointer" ><img src="/static/exit.png" width="70%" height="50%"></a></td>
+        </tr></table>
+        <form method="POST">
+        {{form.csrf_token()}}
+            <hr>
+            <table height="80%" width="80%" style='text-align:left;margin-top:50px;margin-left:40px' cellspacing="10"  cellpadding="0">
+                <tr>
+                    <th>修改密码</th>
+                    <th>用户名：{{username}}</th>
+                    <th style="visibility:hidden;">密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线</th>
+                </tr>
+                <tr>
+                    <th>{{form.password0.label}}</th>
+                    <th>{{form.password0}}</th>
+                    <th >{% for err in form.password0.errors %}
+                            <div class="col-md-12">
+                                <span style="color: red">{{ err }}</span>
+                            </div>
+                        {% endfor %}</th>
+                </tr>
+                <tr>
+                    <th>{{form.password.label}}</th>
+                    <th>{{form.password}}</th>
+                    <th>{% for err in form.password.errors %}
+                            <div class="col-md-12">
+                                <span style="color: red">{{ err }}</span>
+                            </div>
+                        {% endfor %}</th>
+                </tr>
+                <tr>
+                    <th>{{form.password2.label}}</th>
+                    <th>{{form.password2}}</th>
+                    <th>{% for err in form.password2.errors %}
+                            <div class="col-md-12">
+                                <span style="color: red">{{ err }}</span>
+                            </div>
+                        {% endfor %}</th>
+                </tr>
+            </table>
+        <hr>
+        {%for message in get_flashed_messages()%}
+        {{message}}
+        {%endfor%}
+        <span style="font-size:200%;margin-left:40px">{{form.submit}}</span> 
+
+
+    
+    </form>
+    </body>
+</html>

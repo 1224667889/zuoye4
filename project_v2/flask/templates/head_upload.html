@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>头像上传</title>
+    </head>
+    </script>
+        <table style="position:fixed;left:10px;top：0px"><tr>
+            <td> <a href="/index" style="cursor:pointer" ><img src="/static/firstpage.png" width="70%" height="50%"></a></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td> <a href="/upload" style="cursor:pointer" ><img src="/static/upload.png" width="70%" height="50%"></a></td>
+            <td> <a href="/myself" style="cursor:pointer" ><img src="/static/person.png" width="70%" height="50%"></a></td>
+            <td> <a href="/loginout" style="cursor:pointer" ><img src="/static/exit.png" width="70%" height="50%"></a></td>
+            </tr></table>
+<body background="/static/back.png"style="background-repeat:no-repeat;background-size:100% 100%;background-attachment:fixed;">
+    <hr>
+    <br><br><br><br>
+    <div style="position: relative;;left:250px;top：100px">
+
+<h1>头像上传</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    <h2>图片上传（限png文件）</h2>
+    <p ><input type="file" name="file" style="width: 30%;"></p>
+    <p ><input type="submit" value="提交" style="width: 10%;height: 200%;"></p>
+</form>
+{% for message in get_flashed_messages() %}
+<p style="color:chocolate">{{ message }}</p>
+{% endfor %}
+</div>
+</body>
+</html>

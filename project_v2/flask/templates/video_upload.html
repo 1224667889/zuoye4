@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>视频上传</title>
+    </head>
+        <table style="position:fixed;left:10px;top：0px"><tr>
+            <td> <a href="/index" style="cursor:pointer" ><img src="/static/firstpage.png" width="70%" height="50%"></a></td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td> <a href="/upload" style="cursor:pointer" ><img src="/static/upload.png" width="70%" height="50%"></a></td>
+            <td> <a href="/myself" style="cursor:pointer" ><img src="/static/person.png" width="70%" height="50%"></a></td>
+            <td> <a href="/loginout" style="cursor:pointer" ><img src="/static/exit.png" width="70%" height="50%"></a></td>
+            </tr></table>
+<body background="/static/back.png"style="background-repeat:no-repeat;background-size:100% 100%;background-attachment:fixed;">
+    <hr>
+    <br><br>
+    <div style="position: relative;;left:250px;top：0px">
+<h1>视频上传</h1>
+<form method="POST" enctype="multipart/form-data">
+    {{form.csrf_token()}}
+    <h2>视频上传(限mp4文件,且小于512MB)</h2>
+    {{form.video.label}}{{form.video}}
+    {% for err in form.video.errors %}
+    <div class="col-md-12">
+        <span style="color: red">{{ err }}</span>
+    </div>
+    {% endfor %}
+    <br><br>
+    <h2>封面上传（限png文件）</h2>
+    {{form.face.label}}{{form.face}}
+    {% for err in form.face.errors %}
+        <div class="col-md-12">
+            <span style="color: red">{{ err }}</span>
+        </div>
+    {% endfor %}
+    <br><br>
+    {{form.style_id.label}}{{form.style_id}} 
+    {% for err in form.style_id.errors %}
+    <div class="col-md-12">
+        <span style="color: red">{{ err }}</span>
+    </div>
+    {% endfor %}
+    <br><br>
+    {{form.name.label}}{{form.name}} 
+    {% for err in form.name.errors %}
+    <div class="col-md-12">
+        <span style="color: red">{{ err }}</span>
+    </div>
+    {% endfor %}
+    <br><br>
+    {{form.lable.label}}{{form.lable}} 
+    {% for err in form.lable.errors %}
+    <div class="col-md-12">
+        <span style="color: red">{{ err }}</span>
+    </div>
+    <br><br>
+    {% endfor %}
+<br>
+    {{form.submit}}
+     <br><br>
+     <h5>上传过程中请勿进行跳转页面等操作，以免造成数据丢失。</h5>
+     <h5>上传完成将自动跳转，请耐心等待。</h5>
+
+</form>
+</div>
+</body>
+</html>

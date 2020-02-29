@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>账号注册</title>
+    </head>
+    
+
+    <body background="/static/back.png"    style="background-repeat:no-repeat;background-size:100% 100%; background-attachment:fixed;">
+        <div style="top:0px">
+            {%if activity%}
+                
+            {%else%}
+            <table style="position:fixed;left:10px;top：0px"><tr>
+                <td> <a href="/index" style="cursor:pointer" ><img src="/static/firstpage.png" width="70%" height="50%"></a></td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td> <a href="/upload" style="cursor:pointer" ><img src="/static/upload.png" width="70%" height="50%"></a></td>
+                <td> <a href="/login" style="cursor:pointer" ><img src="/static/login.png" width="70%" height="50%"></a></td>
+                <td> <a href="/register" style="cursor:pointer" ><img src="/static/register.png" width="70%" height="50%"></a></td>
+                </tr></table>
+            {%endif%}
+        </div>
+        <form method="POST">
+        {{form.csrf_token()}}
+            <hr>
+            <table height="80%" width="80%" style='text-align:left;margin-top:50px;margin-left:40px' cellspacing="10"  cellpadding="0">
+                <tr>
+                    <th>必填</th>
+                    <th style="visibility:hidden;"></th>
+                    <th style="visibility:hidden;">密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线</th>
+                </tr>
+                <tr>
+                    <th>{{form.username.label}}</th>
+                    <th>{{form.username}}</th>
+                    <th >{% for err in form.username.errors %}
+                            <div class="col-md-12">
+                                <span style="color: red">{{ err }}</span>
+                            </div>
+                        {% endfor %}
+                        {%for message in get_flashed_messages()%}
+                            {{message}}
+                            {%endfor%}                                  
+                    </th>
+
+                </tr>
+                <tr>
+                    <th>{{form.password.label}}</th>
+                    <th>{{form.password}}</th>
+                    <th>{% for err in form.password.errors %}
+                            <div class="col-md-12">
+                                <span style="color: red">{{ err }}</span>
+                            </div>
+                        {% endfor %}</th>
+                </tr>
+                <tr>
+                    <th>{{form.password2.label}}</th>
+                    <th>{{form.password2}}</th>
+                    <th>{% for err in form.password2.errors %}
+                            <div class="col-md-12">
+                                <span style="color: red">{{ err }}</span>
+                            </div>
+                        {% endfor %}</th>
+                </tr>
+            </table>
+        <hr>
+
+        <table height="80%" width="80%" style='text-align:left;margin-top:0px;margin-left:40px' cellspacing="10"  cellpadding="0">
+            <tr>
+                <th>选填</th>
+                <th style="visibility:hidden;"></th>
+                <th style="visibility:hidden;">密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线</th>
+            </tr>
+
+            <tr>
+                <th>{{form.sex.label}}</th>
+                <th>{{form.sex}}</th>
+                <th>{% for err in form.sex.errors %}
+                        <div class="col-md-12">
+                            <span style="color: red">{{ err }}</span>
+                        </div>
+                    {% endfor %}</th>
+            </tr>
+            <tr>
+                <th>{{form.signature.label}}</th>
+                <th>{{form.signature}}</th>
+                <th>{% for err in form.signature.errors %}
+                        <div class="col-md-12">
+                            <span style="color: red">{{ err }}</span>
+                        </div>
+                    {% endfor %}</th>
+            </tr>
+        </table>
+        <hr>
+        <div id="tips" style="margin-left:40px;font-size:150%">
+            <span style="font-size:150%">注意：<br></span>
+            <span style="color: gray"></span>
+            帐号以字母开头，允许5-16字节，允许字母数字下划线<br>
+            密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线<br>
+        </div>
+        <hr>
+        
+        <span style="font-size:150%;margin-left:40px">{{form.submit}}</span> 
+
+
+
+    </form>
+    </body>
+</html>

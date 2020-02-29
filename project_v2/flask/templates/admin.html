@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/css/dateTime.css">
+        <meta charset="UTF-8">
+        <title>管理员操作</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/static/js/dateTime.min.js"></script>
+
+    </head>
+<body>
+<a href="/index" style="font-size: 20px;"><返回主页</a></h2>
+<hr>
+<b style="font-size: 20px;">欢迎回来：{{user_name}}管理员</b>
+<hr>
+<b style="font-size: 40px;">管理员模式</b> 
+<hr>
+<b style="font-size: 20px;">封号</b> 
+<form method="POST">
+    {{form.csrf_token()}}
+    
+    {{form.username.label}}{{form.username}} <br>
+    {{form.bantime.label}}{{form.bantime}}
+    请在选择时间后在结尾添加秒(:00)
+    <br>
+    <span style="font-size:150%;margin-left:40px">{{form.submit}}</span> 
+    <div id="tips" style="margin-left:40px;font-size:150%">
+        <span style="font-size:150%">注意：<br></span>
+        <span style="color: gray"></span>
+        日期格式为  “xxxx-xx-xx xx:xx:xx”<br>
+    </div>
+
+    {%for message in get_flashed_messages()%}
+    {{message}}
+{%endfor%}
+</form>
+<hr>
+<div>
+       
+<div id="users"  style="float:left;margin-left: 135px;">
+        {%if role_name == "admin"%}
+            {#先遍历身份，然后在身份里遍历用户#}
+            <b>用户一览</b>
+            <ul>
+                {%for role in roles%}
+                    <li> <b>{{role.name}}</b></li>
+                    <ul>
+                        {%for user in role.users%}
+                            <li><a href="/other/{{user.id}}" target="_blank">{{user.name}}</a> </li>
+                        {%endfor%}
+                    </ul>
+                {%endfor%}
+            </ul>
+        {% endif %}
+        </div>
+
+        <div id="video" style="float: right;margin-right: 235px;">
+            {%if role_name == "admin"%}
+            {#先遍历分区，然后在分区里遍历视频#}
+            <b>视频一览</b>
+            <ul>
+                {%for style in styles%}
+                    <li>{{style.content}}</li>
+                    <ul>
+                        {%for video in style.videos%}
+<li>
+    
+    <a href="/video/{{video.id}}" target="_blank">{{video.name}}</a>
+    <a href="javascript:;" class="delete_btn" delete-id={{video.id}}>删除视频</a>
+
+</li>
+                                
+                        {%endfor%}
+                    </ul>
+                {%endfor%}
+            </ul>
+        {% endif %}
+        </div> 
+
+        </div>
+        <script type="text/javascript">
+            $(function(){
+            //页面加载完毕后开始执行的事件
+            $(".delete_btn").click(function(){
+            $("#delete_form").remove();
+            $(".delete-submit").remove();
+            var dfm=document.createElement("form");
+            dfm.id='delete_form';
+            dfm.class="delete_form"; 
+            $(this).parent().append(dfm);
+            var di=document.createElement("textarea") ;
+            di.hidden="hidden";
+            di.id="id";
+            di.name="id";
+            di.append($(this).attr('delete-id'));
+            dfm.appendChild(di);
+            var dbt = document.createElement("button") ;
+            //bt.type="submit";
+            //bt.class="reply-submit";
+            dbt.setAttribute("class","delete-submit");
+            //bt.onclick="reply()"
+            dbt.setAttribute("onclick","deletecomment()");
+            dbt.append("确认删除")
+            $(this).parent().append(dbt);
+            
+                        });
+                    });
+        </script>
+    <script>
+        function deletecomment(){
+        $.ajax({
+            url:"/deletevideo",
+            type:'POST',
+            data: $("#delete_form").serialize(),    
+            success:function (resp) {
+                if (resp=="wrong"){alert('视频删除失败')}
+                else{
+                    if (resp=='unlogin'){alert('未登录，无法进行该操作')}
+                else{
+                    alert('视频删除成功,点击确认刷新查看');
+                    window.location.reload(); 
+                    }
+                }
+            }
+        })
+    }</script>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<hr>
+
+
+<script type="text/javascript">
+    $("#date").datetime({
+        type:"date",
+        value:[2020,2,14],
+        success:function(res){
+            console.log(res)
+        }
+    })
+    
+    $("#time").datetime({
+        type:"time",
+        value:[12,28]
+    })
+    
+    $("#datetime").datetime({
+        type:"datetime",
+        value:[2020,2,15,15,30]
+    })
+    </script>
+</body>
+
+</html>

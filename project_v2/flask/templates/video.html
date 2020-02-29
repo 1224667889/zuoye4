@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{video_message.name}}</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link href="/static/css/DPlayer.min.css" rel="stylesheet"/>
+<link href="/static/css/demo.css" rel="stylesheet" type="text/css" />
+<style>
+</style>
+</head>
+
+
+<body>
+    
+    <div class="container">
+        <div class="row main">
+            <div class="col-md-12">
+                <h2 class="top_title"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                <a href="/index">{{video_message.name}}</a></h2>
+                <div class="container" style="width: 96%; margin: 30px auto">
+                    <div id="dplayer"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static',filename='js/DPlayer.min.js') }}"></script>
+    
+    <script>
+    const dp = new DPlayer({
+        container: document.getElementById('dplayer'),
+        video: {
+            url: {{video_message.video|tojson}},
+            pic: {{video_message.face|tojson}},
+        },
+        danmaku: {
+            id: {{video_message.id|tojson}},
+            api: {{video_message.api|tojson}},
+        },
+    });
+    </script>
+    <br>
+<div style="float:left;margin-left: 50px;">
+<div id='lable' style="margin-left: 20px;">
+    <b style="font-size: 30px;">简介：</b><br>
+    <textarea wrap="virtual" id="" cols="50" rows="2" style="font-size: 15px;"readonly="readonly">{{video_message.lable}}</textarea>
+</div>
+<br>
+<div id='message' style="margin-left: 20px;">
+<div style="float:left;margin-left: 10px;">
+    <form id="like_form">
+        <div width="50%">
+            <input type="text" name="like" value={{video_message.like}} id="like" readonly="readonly" style="width:40px; height:25px;">
+            <input type="submit" value="赞"/>
+        </div>
+    </form>
+</div>
+<div style="float:left;margin-left: 25px;">
+    <form id="dislike_form">
+        <div width="50%">
+            <input type="text" name="dislike" value={{video_message.dislike}} id="dislike" readonly="readonly" style="width:40px; height:25px;">
+            <input type="submit" value="踩"/>
+        </div>
+    </form>
+</div>
+<div style="margin-left: 215px;">
+    <form id="collect_form">
+        <div width="50%">
+            <input type="text" name="collect" value={{video_message.collect}} id="collect" readonly="readonly" style="width:40px; height:25px;">
+            <input type="submit" value="收藏"/>
+        </div>
+    </form>
+</div>
+    <b style="font-size: 15px;">类型:{{video_message.style}}</b>
+    <b style="visibility:hidden;">这个段隐藏。</b>
+    <b style="font-size: 15px;">发布日期:{{video_message.birthday}}</b>
+</div>
+</div>
+
+<div id='author' style="margin-left: 500px;">
+    <b style="font-size: 30px;">作者：</b>
+    <div id="v_upinfo" class="up-info report-wrap-module report-scroll-module" scrollshow="true">
+    <div class="u">
+        <a href={{video_message.space}} target="_blank" report-id="head" class="fa" style="float:left;">
+        <img src={{video_message.head}} class="up-face" width="80" height="80"><!----><!----><!----></a></div>
+        <div class="name" style="line-height:20px;height:20px;">
+            <!---->
+            <a href="{{video_message.space}}" target="_blank" report-id="name" class="username">用户名：{{video_message.author}}</a>
+            <a href={{video_message.space}} target="_blank" class="message">
+    </a>
+    </div>
+    <div class="desc">
+        个性签名：<br>
+        {{video_message.signature}}
+      </div>
+  </div>
+<hr>
+
+</div>
+<br>
+<div><b style="visibility:hidden;">aaaaaaaa</b></div>
+<hr>
+<div class="comment-send " style="margin-left: 100px;">
+    <div class="textarea-container">
+        {%if logining%}
+        <img src={{user.usermessage.smallhead}} class="user-face" width="100" height="100">
+        <form id="comment_form" style="margin-left: 120px;margin-top: -100px;">
+            <div width="50%">
+                <textarea cols="80" name="comment"  id="comment" rows="5" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。" class="ipt-txt"></textarea>
+                <button type="submit" class="comment-submit" >发表评论</button>
+            </div>
+        </form>
+            {%else%}
+            <div class="baffle">请先<a href="/login" target="_blank" class="message">登录</a>后发表评论 (・ω・)</div>
+            {%endif%}
+        </div>
+    </div>
+    
+    
+
+<br><br><br>
+{%if role=='admin'%}
+<p style="font-size: 50px;" align="center">进入管理员模式</p>
+<br>
+<br>
+<hr>
+{%endif%}
+
+
+{%if num==0%}
+<b style="font-size: 25px;margin-left: 100px;">还没人进行评论，快来抢沙发吧！</b>
+{%else%}
+<div name="pages" style="margin-right: 10px;" align="center">
+{%if p!=1%}
+<a href="/video/{{video_message.id}}/page={{p-1}}">上一页</a>
+{%endif%}
+{%for i in range(maxp)%}
+{%if p!=i+1%}
+<a href="/video/{{video_message.id}}/page={{i+1}}">{{i+1}}</a>
+{%else%}
+<b>{{i+1}}</b>
+{%endif%}
+{%endfor%}
+{%if maxp!=p%}
+<a href="/video/{{video_message.id}}/page={{p+1}}">下一页</a>
+{%endif%}
+</div>
+<b style="font-size: 45px;margin-left: 60px;">评论区:</b>
+<br><hr>
+<div class="comment-list" style="margin-left: 70px;">
+{%if p==1%}
+{%for i in range(num-1,(maxp-p)*10-1,-1)%}
+<table  border="1" id="commentlist{{comments[i].id}}" name={{comments[i].id}}>
+    <tr>
+        <td colspan="3">
+            <a href="/other/{{comments[i].user_id}}" target="_blank" report-id="self" class="fa" style="float:left;">{{comments[i].user.name}}</a> 
+            {%if comments[i].reply_id!=comments[i].user_id%}
+            <b style="float:left;">回复</b>
+            <a href="/other/{{comments[i].reply_id}}" target="_blank" report-id="other" class="fa" style="float:left;">{{comments[i].reply}}</a>
+            {%endif%}
+        </td>
+    </tr>
+    <tr>
+        <td><a href="/other/{{comments[i].user_id}}" target="_blank" report-id="head" class="fa" style="float:left;"><img src={{comments[i].user.usermessage.smallhead}} class="user-face" width="80" height="80"><!----><!----><!----></a></td>
+        <td colspan="2"><textarea rows="3" cols="50" readonly="readonly">{{comments[i].content}}</textarea></td>
+    </tr>
+    <tr>
+        <td><a href="javascript:;" class="reply_btn" reply-name={{comments[i].reply}} reply-id={{comments[i].reply_id}}>回复ta</td>
+        <td>时间:{{comments[i].birthday}}</td>
+        <td>{{i+1}}楼</td>
+        {%if role=='admin'%}
+        <td><a href="javascript:;" class="delete_btn" delete-id={{comments[i].id}}>删除评论</td>
+        {%endif%}
+
+    </tr>   
+</table>
+{%endfor%}
+{%else%}
+{%for i in range((maxp-p+1)*10-1,(maxp-p)*10-1,-1)%}
+<table  border="1" id="commentlist{{comments[i].id}}" name={{comments[i].id}}>
+    <tr>
+        <td colspan="3">
+            <a href="/other/{{comments[i].user_id}}" target="_blank" report-id="self" class="fa" style="float:left;">{{comments[i].user.name}}</a> 
+            {%if comments[i].reply_id!=comments[i].user_id%}
+            <b style="float:left;">回复</b>
+            <a href="/other/{{comments[i].reply_id}}" target="_blank" report-id="other" class="fa" style="float:left;">{{comments[i].reply}}</a>
+            {%endif%}
+        </td>
+    </tr>
+    <tr>
+        <td><a href="/other/{{comments[i].user_id}}" target="_blank" report-id="head" class="fa" style="float:left;"><img src={{comments[i].user.usermessage.smallhead}} class="user-face" width="80" height="80"><!----><!----><!----></a></td>
+        <td colspan="2"><textarea rows="3" cols="50" readonly="readonly">{{comments[i].content}}</textarea></td>
+    </tr>
+    <tr>
+        <td><a href="javascript:;" class="reply_btn" reply-name={{comments[i].reply}} reply-id={{comments[i].reply_id}}>回复ta</td>
+        <td>时间:{{comments[i].birthday}}</td>
+        <td>{{i+1}}楼</td>
+        {%if role=='admin'%}
+        <td><a href="javascript:;" class="delete_btn" delete-id={{comments[i].id}}>删除评论</td>
+        {%endif%}
+    </tr>   
+</table>
+{%endfor%}
+{%endif%}
+
+{%endif%}
+<div name="pages" style="margin-right: 10px;" align="center">
+    {%if p!=1%}
+    <a href="/video/{{video_message.id}}/page={{p-1}}">上一页</a>
+    {%endif%}
+    {%for i in range(maxp)%}
+    {%if p!=i+1%}
+    <a href="/video/{{video_message.id}}/page={{i+1}}">{{i+1}}</a>
+    {%else%}
+    <b>{{i+1}}</b>
+    {%endif%}
+    {%endfor%}
+    {%if maxp!=p%}
+    <a href="/video/{{video_message.id}}/page={{p+1}}">下一页</a>
+    {%endif%}
+    </div>
+<script type="text/javascript">
+    $(function(){
+    //页面加载完毕后开始执行的事件
+    $(".delete_btn").click(function(){
+    $("#delete_form").remove();
+    $(".delete-submit").remove();
+    var dfm=document.createElement("form");
+    dfm.id='delete_form';
+    dfm.class="delete_form"; 
+    $(this).parent().append(dfm);
+    var di=document.createElement("textarea") ;
+    di.hidden="hidden";
+    di.id="id";
+    di.name="id";
+    di.append($(this).attr('delete-id'));
+    dfm.appendChild(di);
+    var dbt = document.createElement("button") ;
+    //bt.type="submit";
+    //bt.class="reply-submit";
+    dbt.setAttribute("class","delete-submit");
+    //bt.onclick="reply()"
+    dbt.setAttribute("onclick","deletecomment()");
+    dbt.append("确认删除")
+    $(this).parent().append(dbt);
+    
+                });
+            });
+</script>
+<script type="text/javascript">
+    $(function(){
+    //页面加载完毕后开始执行的事件
+    $(".reply_btn").click(function(){
+    $("#reply_form").remove();
+    $(".reply-submit").remove();
+    $("#reply_at").remove();
+    var fm=document.createElement("form");
+    fm.id='reply_form';
+    fm.class="reply_form"; 
+    var at=document.createElement("a");
+    at.href="/other/"+$(this).attr('reply-id');
+    at.target="_blank"
+    at.style="float:left;";
+    at.id='reply_at'
+    at.append('@'+$(this).attr('reply-name'));
+    $(this).parent().append(at);
+    $(this).parent().append(fm);
+    var otext = document.createElement("textarea") ;
+    otext.cols="80";
+    otext.name="reply";
+    otext.id="reply";
+    otext.row="5";
+    otext.placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。";
+    otext.class="ipt-txt";
+    otext.setAttribute("class","ipt-txt");
+    fm.appendChild(otext);
+    var i=document.createElement("textarea") ;
+    i.hidden="hidden";
+    i.id="id";
+    i.name="id";
+    i.append($(this).attr('reply-id'));
+    fm.appendChild(i);
+    var n=document.createElement("textarea") ;
+    n.hidden="hidden";
+    n.id="name";
+    n.name="name";
+    n.append($(this).attr('reply-name'));
+    fm.appendChild(n);
+    var bt = document.createElement("button") ;
+    //bt.type="submit";
+    //bt.class="reply-submit";
+    bt.setAttribute("class","reply-submit");
+    //bt.onclick="reply()"
+    bt.setAttribute("onclick","reply()");
+    bt.append("发布评论")
+    $(this).parent().append(bt);
+    
+                });
+            });
+</script>
+<script>
+    $("#like_form").submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:"/like/{{video_message.id}}",
+            type:'POST',
+            data: $(this).serialize(),   
+            success:function (resp) {
+                    if(resp.state=='wrong'){
+                        alert(resp.message)
+                    }
+                    else{
+                        like.value=resp.like
+                        dislike.value=resp.dislike
+                        alert(resp.message)
+                    }
+            }
+        })
+    });
+    </script>
+<script>
+    $("#dislike_form").submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:"/dislike/{{video_message.id}}",
+            type:'POST',
+            data: $(this).serialize(),   
+            success:function (resp) {
+                    if(resp.state=='wrong'){
+                        alert(resp.message)
+                    }
+                    else{
+                        like.value=resp.like
+                        dislike.value=resp.dislike
+                        alert(resp.message)
+                    }
+            }
+        })
+    });
+    </script>
+<script>
+    $("#collect_form").submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:"/collect/{{video_message.id}}",
+            type:'POST',
+            data: $(this).serialize(),  
+            success:function (resp) {
+                    if(resp.state=='wrong'){
+                        alert(resp.message)
+                    }
+                    else{
+                        collect.value=resp.data
+                        alert(resp.message)
+                    }
+            }
+        })
+    });
+    </script>
+<script>
+    $("#comment_form").submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:"/comment/{{video_message.id}}",
+            type:'POST',
+            data: $(this).serialize(),  
+            success:function (resp) {
+                if (resp=="wrong"){alert('评论失败')}
+                else{
+                    if (resp=='unlogin'){alert('未登录，无法进行该操作')}
+                else{
+                    if (resp=='no'){alert('评论不能为空')}
+                    else{
+                    alert('评论成功,点击确认刷新查看');
+                    window.location.reload(); }
+                }
+                }
+
+                
+            }
+        })
+    });
+    </script>
+<script>
+    function reply(){
+        $.ajax({
+            url:"/reply/{{video_message.id}}",
+            type:'POST',
+            data: $("#reply_form").serialize(),  
+            success:function (resp) {
+                if (resp=="wrong"){alert('评论失败')}
+                else{
+                    if (resp=='unlogin'){alert('未登录，无法进行该操作')}
+                else{
+                    if (resp=='no'){alert('评论不能为空')}
+                    else{
+                    alert('评论成功,点击确认刷新查看');
+                    window.location.reload(); }
+                }
+                }         
+            }
+        })
+    }
+    function deletecomment(){
+        $.ajax({
+            url:"/delete/{{video_message.id}}",
+            type:'POST',
+            data: $("#delete_form").serialize(),    
+            success:function (resp) {
+                if (resp=="wrong"){alert('评论删除失败')}
+                else{
+                    if (resp=='unlogin'){alert('未登录，无法进行该操作')}
+                else{
+                    alert('评论删除成功,点击确认刷新查看');
+                    window.location.reload(); 
+                    }
+                }
+            }
+        })
+    }
+    </script>
+</body>
+</html>
